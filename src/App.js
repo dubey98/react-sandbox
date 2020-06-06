@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      todos: [
+        {
+          title: "",
+          done: false,
+        },
+      ],
+    };
+  }
+  handleForm(e) {
+    e.preventDefault();
+    console.log(e);
+  }
+  takeinput(e) {
+    console.log(e.target.value);
+  }
+  render() {
+    return (
+      <div className="App">
+        <form>
+          <label htmlFor="newTodo">Create a new Todo :</label>
+          <br />
+          <input
+            type="text"
+            name="newTodo"
+            placeholder="new Todo"
+            onChange={(e) => this.takeinput(e)}
+          />
+          <button type="submit" onClick={(e) => this.handleForm(e)}>
+            create
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default App;
