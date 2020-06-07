@@ -6,10 +6,8 @@
 button {
   padding: 5px;
   text-align: center;
-  display: block;
-  width: 100%;
 }
-input {
+input[type="text"] {
   padding: 5px;
   margin: 10px 0px;
   box-sizing: border-box;
@@ -18,4 +16,7 @@ input {
 }
 .todo {
   border: 2px solid black;
+}
+.strike {
+  text-decoration: line-through;
 }

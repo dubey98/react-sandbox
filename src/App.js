@@ -5,7 +5,16 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: [],
+      todos: [
+        {
+          title: "new todo",
+          done: false,
+        },
+        {
+          title: "next on list",
+          done: true,
+        },
+      ],
       todoTitle: "",
     };
   }
@@ -34,7 +43,16 @@ class App extends React.Component {
 
   deleteTask(e, index) {
     const todos = this.state.todos.slice();
+    console.log(index);
     todos.splice(index, 1);
+    this.setState({
+      todos: todos,
+    });
+  }
+
+  completeTask(e, index) {
+    const todos = this.state.todos.slice();
+    todos[index].done = this.state.todos[index].done ? false : true;
     this.setState({
       todos: todos,
     });
@@ -61,9 +79,15 @@ class App extends React.Component {
         <div>
           {this.state.todos.map((todo, index) => {
             return (
-              <div key={todo.title} className="todo">
-                <h3>{todo.title}</h3>
+              <div key={`${index}`} className="todo">
+                <h3 className={todo.done ? "strike" : ""}>{todo.title}</h3>
                 <div>
+                  <input
+                    type="checkbox"
+                    checked={todo.done}
+                    onChange={(e) => this.completeTask(e, index)}
+                  />
+                  <small>{todo.done ? "Completed" : "pending"}</small>
                   <button onClick={(e, index) => this.deleteTask(e, index)}>
                     Delete
                   </button>
