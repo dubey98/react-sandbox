@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import Form from "./form";
+import Todos from "./Todos";
 
 class App extends React.Component {
   constructor() {
@@ -61,41 +63,17 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <form>
-          <label htmlFor="newTodo">Create a new Todo :</label>
-          <br />
-          <input
-            type="text"
-            name="newTodo"
-            placeholder="new Todo"
-            onChange={(e) => this.takeinput(e)}
-            value={this.state.todoTitle}
-          />
-          <button type="submit" onClick={(e) => this.handleForm(e)}>
-            create
-          </button>
-        </form>
+        <Form
+          takeinput={this.takeinput.bind(this)}
+          handleForm={this.handleForm.bind(this)}
+          todoTitle={this.state.todoTitle}
+        />
         <hr />
-        <div>
-          {this.state.todos.map((todo, index) => {
-            return (
-              <div key={`${index}`} className="todo">
-                <h3 className={todo.done ? "strike" : ""}>{todo.title}</h3>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={todo.done}
-                    onChange={(e) => this.completeTask(e, index)}
-                  />
-                  <small>{todo.done ? "Completed" : "pending"}</small>
-                  <button onClick={(e, index) => this.deleteTask(e, index)}>
-                    Delete
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <Todos
+          todos={this.state.todos}
+          completeTask={this.completeTask.bind(this)}
+          deleteTask={this.deleteTask.bind(this)}
+        />
       </div>
     );
   }
